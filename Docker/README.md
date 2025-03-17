@@ -1,6 +1,6 @@
 # Zadanie 1 Docker
 
-## Obraz: 
+## Obraz
 <https://hub.docker.com/r/paweljasinski77/zadanie_docker>
 
 ## Wymagania
