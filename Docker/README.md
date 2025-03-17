@@ -3,7 +3,7 @@
 ## Obraz: 
 <https://hub.docker.com/r/paweljasinski77/zadanie_docker>
 
-# Wymagania
+## Wymagania
 3.0 Obraz Ubuntu z Pythonem w wersji 3.10  
 3.5 Obraz ubuntu:24.02 z Javą w wersji 8 oraz Kotlinem  
 4.0 Do powyższego należy dodać najnowszego Gradle’a oraz paczkę JDBC SQLite w ramach projektu na Gradle (build.gradle)  
