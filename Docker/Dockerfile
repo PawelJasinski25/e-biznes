@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
-
 RUN curl -s "https://get.sdkman.io" | bash && \
     bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install kotlin && sdk install gradle"
 
@@ -23,7 +22,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN gradle dependencies --no-daemon
 
 RUN gradle build --no-daemon
 
