@@ -13,7 +13,7 @@ class ProductController @Inject()(val controllerComponents: ControllerComponents
 
   private val products = mutable.ListBuffer(
     Product(1, "Laptop", 1, 3500.00),
-    Product(2, "Telefon", 1, 2500.00),
+    Product(2, "Phone", 1, 2500.00),
     Product(3, "Tablet", 1, 1500.00),
     Product(4, "T-shirt", 2, 15.99),
     Product(5, "Jacket", 2, 85.00),

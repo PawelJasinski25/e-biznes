@@ -7,11 +7,24 @@
 GET     /                           controllers.HomeController.index()
 
 
-GET     /products           controllers.ProductController.getAll
+GET     /products         controllers.ProductController.getAll
 GET     /products/:id     controllers.ProductController.getById(id: Int)
 POST    /products         controllers.ProductController.add
 PUT     /products/:id     controllers.ProductController.update(id: Int)
 DELETE  /products/:id     controllers.ProductController.delete(id: Int)
+
+
+GET     /categories         controllers.CategoryController.getAll
+GET     /categories/:id     controllers.CategoryController.getById(id: Int)
+POST    /categories         controllers.CategoryController.add
+PUT     /categories/:id     controllers.CategoryController.update(id: Int)
+DELETE  /categories/:id     controllers.CategoryController.delete(id: Int)
+
+GET     /carts         controllers.CartController.getAll
+GET     /carts/:id     controllers.CartController.getById(id: Int)
+POST    /carts         controllers.CartController.add
+PUT     /carts/:id     controllers.CartController.update(id: Int)
+DELETE  /carts/:id     controllers.CartController.delete(id: Int)
 
 
 # Map static resources from the /public folder to the /assets URL path
