@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  app-scala:
+    image: paweljasinski77/zadanie_scala:latest
+    ports:
+      - 9000:9000
+
+  ngrok:
+    image: ngrok/ngrok
+    ports:
+      - "4040:4040"
+    command: [ "http", "--host-header=localhost", "app-scala:9000" ]
+    depends_on:
+      - app-scala
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTH_TOKEN}
