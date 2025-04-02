@@ -6,10 +6,13 @@ import io.ktor.server.netty.*
 import io.ktor.server.routing.*
 import dev.kord.core.Kord
 import dev.kord.common.entity.Snowflake
+import dev.kord.core.event.message.MessageCreateEvent
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
+import dev.kord.core.on
+
 
 suspend fun main() {
     val env = dotenv()
@@ -28,5 +31,13 @@ suspend fun main() {
             }
         }
     }.start(wait = false)
+
+    kordBot.on<MessageCreateEvent> {
+        val message = this.message
+        if (!message.author?.isBot!!) {
+            println("Received message from ${message.author?.username}: ${message.content}")
+        }
+    }
+
     kordBot.login()
 }
