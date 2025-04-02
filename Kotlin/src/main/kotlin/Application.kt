@@ -20,6 +20,8 @@ suspend fun main() {
     val channelId = env["CHANNEL_ID"]
     val kordBot = Kord(botToken)
 
+    val categories = listOf("computer games", "books", "electronics", "clothing", "sports")
+
     embeddedServer(Netty, host = "127.0.0.1", port = 8080) {
         routing {
             post("/sendMessage") {
@@ -36,6 +38,9 @@ suspend fun main() {
         val message = this.message
         if (!message.author?.isBot!!) {
             println("Received message from ${message.author?.username}: ${message.content}")
+        }
+        if (message.content == "!categories") {
+            message.channel.createMessage("Categories: " + categories.joinToString(", "))
         }
     }
 
