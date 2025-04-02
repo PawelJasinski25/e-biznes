@@ -20,7 +20,14 @@ suspend fun main() {
     val channelId = env["CHANNEL_ID"]
     val kordBot = Kord(botToken)
 
-    val categories = listOf("computer games", "books", "electronics", "clothing", "sports")
+    val categories = listOf("games", "books", "electronics", "clothing", "sports")
+    val productsByCategory = mapOf(
+        "games" to listOf("Cyberpunk 2077", "The Witcher 3", "Red Dead Redemption 2"),
+        "books" to listOf("Hobbit", "Harry Potter", "Dune"),
+        "electronics" to listOf("Laptop", "Smartphone", "Headphones"),
+        "clothing" to listOf("T-shirt", "Jeans", "Sneakers"),
+        "sports" to listOf("Tennis Racket","Baseball Bat", "Soccer Ball")
+    )
 
     embeddedServer(Netty, host = "127.0.0.1", port = 8080) {
         routing {
@@ -41,6 +48,22 @@ suspend fun main() {
         }
         if (message.content == "!categories") {
             message.channel.createMessage("Categories: " + categories.joinToString(", "))
+        }
+
+        if (message.content.startsWith("!products")) {
+            val parts = message.content.split(" ")
+            if (parts.size > 1) {
+                val category = parts[1].lowercase()
+                val products = productsByCategory[category]
+                message.channel.createMessage(
+                    if (products != null)
+                        "Products in the $category category: " + products.joinToString(", ")
+                    else
+                        "Unknown category"
+                )
+            } else {
+                message.channel.createMessage("Please provide a category. Use: !products <category>")
+            }
         }
     }
 
