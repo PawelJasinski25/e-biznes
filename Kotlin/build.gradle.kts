@@ -30,5 +30,7 @@ dependencies {
     implementation("dev.kord:kord-core:0.13.1")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    implementation("com.slack.api:slack-api-client:1.17.0")
+    implementation("com.slack.api:bolt-socket-mode:1.45.3")
 
 }

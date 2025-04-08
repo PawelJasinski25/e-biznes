@@ -12,6 +12,10 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import dev.kord.core.on
+import com.slack.api.Slack
+import com.slack.api.methods.SlackApiException
+import com.slack.api.methods.request.chat.ChatPostMessageRequest
+import com.slack.api.methods.response.chat.ChatPostMessageResponse
 
 
 suspend fun main() {
@@ -19,6 +23,9 @@ suspend fun main() {
     val botToken = env["TOKEN"]
     val channelId = env["CHANNEL_ID"]
     val kordBot = Kord(botToken)
+
+    val slackToken = env["SLACK_TOKEN"]
+    val slackChannelId = env["SLACK_CHANNEL_ID"]
 
     val categories = listOf("games", "books", "electronics", "clothing", "sports")
     val productsByCategory = mapOf(
@@ -29,6 +36,28 @@ suspend fun main() {
         "sports" to listOf("Tennis Racket","Baseball Bat", "Soccer Ball")
     )
 
+    fun sendMessageToSlack(message: String) {
+        try {
+            val slack = Slack.getInstance()
+            val methods = slack.methods(slackToken)
+            val response: ChatPostMessageResponse = methods.chatPostMessage(
+                ChatPostMessageRequest.builder()
+                    .channel(slackChannelId)
+                    .text(message)
+                    .build()
+            )
+            if (!response.isOk) {
+                println("Slack Error: ${response.error}")
+            } else {
+                println("Message sent to Slack!")
+            }
+        } catch (e: SlackApiException) {
+            println("Slack API Error: ${e.message}")
+        } catch (e: Exception) {
+            println("Error sending message to Slack: ${e.message}")
+        }
+    }
+
     embeddedServer(Netty, host = "127.0.0.1", port = 8080) {
         routing {
             post("/sendMessage") {
@@ -37,6 +66,12 @@ suspend fun main() {
                     content = messageContent
                 }
                 call.respond(HttpStatusCode.OK, "Message sent successfully to channel with id $channelId.\"")
+            }
+
+            post("/sendMessageSlack") {
+                val messageContent = call.receive<String>()
+                sendMessageToSlack(messageContent)
+                call.respond(HttpStatusCode.OK, "Message sent successfully to Slack channel with id $slackChannelId.")
             }
         }
     }.start(wait = false)
