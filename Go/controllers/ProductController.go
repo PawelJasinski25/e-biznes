@@ -58,8 +58,8 @@ func UpdateProduct(c echo.Context) error {
 	if err := c.Bind(&product); err != nil {
 		return err
 	}
-	database.DB.Scopes(scopes.PreloadCategory).First(&product, id)
 	database.DB.Save(&product)
+	database.DB.Scopes(scopes.PreloadCategory).First(&product, id)
 	return c.JSON(http.StatusOK, product)
 }
 
