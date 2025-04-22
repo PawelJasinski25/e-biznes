@@ -19,6 +19,7 @@ func main() {
 
 	err := database.DB.AutoMigrate(
 		&models.Product{},
+		&models.Category{},
 		&models.Cart{},
 		&models.CartItem{},
 	)
@@ -28,6 +29,7 @@ func main() {
 
 	routes.ProductRoutes(e)
 	routes.CartRoutes(e)
+	routes.CategoryRoutes(e)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

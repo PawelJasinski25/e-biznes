@@ -11,7 +11,7 @@ import (
 
 func GetProducts(c echo.Context) error {
 	var products []models.Product
-	result := database.DB.Find(&products)
+	result := database.DB.Preload("Category").Find(&products)
 	if result.Error != nil {
 		return c.JSON(http.StatusInternalServerError, result.Error)
 	}
@@ -21,7 +21,7 @@ func GetProducts(c echo.Context) error {
 func GetProduct(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var product models.Product
-	result := database.DB.First(&product, id)
+	result := database.DB.Preload("Category").First(&product, id)
 	if result.Error != nil {
 		return c.JSON(http.StatusNotFound, map[string]string{"message": "Product not found"})
 	}
