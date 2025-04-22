@@ -5,12 +5,13 @@ import (
 
 	"Go/database"
 	"Go/models"
+	"Go/scopes"
 	"github.com/labstack/echo/v4"
 )
 
 func GetCategories(c echo.Context) error {
 	var categories []models.Category
-	err := database.DB.Preload("Products").Find(&categories).Error
+	err := database.DB.Scopes(scopes.PreloadProducts).Find(&categories).Error
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, echo.Map{"error": err.Error()})
 	}
@@ -22,7 +23,7 @@ func GetCategory(c echo.Context) error {
 	id := c.Param("id")
 
 	var category models.Category
-	err := database.DB.Preload("Products").First(&category, id).Error
+	err := database.DB.Scopes(scopes.PreloadProducts).First(&category, id).Error
 	if err != nil {
 		return c.JSON(http.StatusNotFound, echo.Map{"error": "Category not found"})
 	}

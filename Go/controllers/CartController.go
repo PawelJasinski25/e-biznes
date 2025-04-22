@@ -6,12 +6,13 @@ import (
 
 	"Go/database"
 	"Go/models"
+	"Go/scopes"
 	"github.com/labstack/echo/v4"
 )
 
 func GetCarts(c echo.Context) error {
 	var carts []models.Cart
-	err := database.DB.Preload("Items.Product").Find(&carts).Error
+	err := database.DB.Scopes(scopes.PreloadItemsProduct).Find(&carts).Error
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, echo.Map{"error": err.Error()})
 	}
@@ -43,7 +44,7 @@ func GetCart(c echo.Context) error {
 	id := c.Param("id")
 
 	var cart models.Cart
-	err := database.DB.Preload("Items.Product").First(&cart, id).Error
+	err := database.DB.Scopes(scopes.PreloadItemsProduct).First(&cart, id).Error
 	if err != nil {
 		return c.JSON(http.StatusNotFound, echo.Map{"error": "Cart not found"})
 	}
@@ -93,7 +94,7 @@ func CreateCart(c echo.Context) error {
 		database.DB.Create(&cartItem)
 
 		var product models.Product
-		database.DB.First(&product, item.ProductID)
+		database.DB.Scopes(scopes.PreloadCategory).First(&product, item.ProductID)
 
 		items = append(items, map[string]interface{}{
 			"product_id":   item.ProductID,
