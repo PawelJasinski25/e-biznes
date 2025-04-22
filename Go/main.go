@@ -17,11 +17,17 @@ func main() {
 		os.Exit(1)
 	}
 
-	err := database.DB.AutoMigrate(&models.Product{})
+	err := database.DB.AutoMigrate(
+		&models.Product{},
+		&models.Cart{},
+		&models.CartItem{},
+	)
 	if err != nil {
 		return
 	}
+
 	routes.ProductRoutes(e)
+	routes.CartRoutes(e)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
