@@ -36,7 +36,7 @@
 
 :white_check_mark: 3.0  aplikacja kliencka w Kotlinie we frameworku Ktor, która pozwala na przesyłanie wiadomości na platformę Discord [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/7fd44809e78af83475bd173d79a205962f43f429)
 
-:white_check_mark: 3.5  Aplikacja jest w stanie odbierać wiadomości użytkowników z platformy Discord skierowane do aplikacj (bota) [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/0040d79abc7d610f344761345232e8f34989c045)
+:white_check_mark: 3.5  Aplikacja jest w stanie odbierać wiadomości użytkowników z platformy Discord skierowane do aplikacji (bota) [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/0040d79abc7d610f344761345232e8f34989c045)
 
 :white_check_mark: 4.0  Zwróci listę kategorii na określone żądanie użytkownika [Link do commita 3](https://github.com/PawelJasinski25/e-biznes/commit/7f7b9811dd96d73c7ac5741ca357dc85311b4df6)
 
@@ -46,4 +46,19 @@
 
 [Zadanie - Kotlin](https://github.com/PawelJasinski25/e-biznes/tree/main/Kotlin)  
 [Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Kotlin.zip)  
+
+**Zadanie 4** Go + Echo
+
+:white_check_mark: 3.0  stworzyć aplikację we frameworki echo w j. Go, która będzie miała kontroler Produktów zgodny z CRUD [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/7b2c744602f1e0f2842828170645a96ef745e00e)
+
+:white_check_mark: 3.5  model Produktów wykorzystując gorm oraz wykorzystać model do obsługi produktów w kontrolerze (zamiast listy) [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/49d2a80f2733f5de0519d65ad3fbdf32d6dfddd7)
+
+:white_check_mark: 4.0  dodać model Koszyka oraz dodać odpowiedni endpoint [Link do commita 3](https://github.com/PawelJasinski25/e-biznes/commit/829ea9de2648cb3fa03eba3dc9190bb1966bd5a0)
+
+:white_check_mark: 4.5  stworzyć model kategorii i dodać relację między kategorią, a produktem [Link do commita 4](https://github.com/PawelJasinski25/e-biznes/commit/fc25149692ae1412f037d9caced33ab2e9b605b4)
+
+:white_check_mark: 5.0 pogrupować zapytania w gorm’owe scope'y [Link do commita 5](https://github.com/PawelJasinski25/e-biznes/commit/f345b9e522ec26813591dc025f186a1943025bdd)
+
+[Zadanie - Go](https://github.com/PawelJasinski25/e-biznes/tree/main/Go)  
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Go.zip)  
 
