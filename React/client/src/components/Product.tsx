@@ -16,6 +16,20 @@ const Products = () => {
             .catch(error => console.error("Error fetching products:", error));
     }, []);
 
+    const addToCart = async (productId: number) => {
+        try {
+            await axios.post("http://localhost:8080/cart", {
+                product_id: productId,
+                quantity: 1, // 🔥 Zawsze dodajemy 1 sztukę
+            });
+
+            alert("Produkt dodany do koszyka!");
+        } catch (error) {
+            console.error("Błąd dodawania do koszyka:", error);
+        }
+    };
+
+
     return (
         <div>
             <h2>Lista produktów</h2>
@@ -23,11 +37,13 @@ const Products = () => {
                 {products.map((product) => (
                     <li key={product.id}>
                         {product.name} - {product.price} zł
+                        <button onClick={() => addToCart(product.id)}>➕ Dodaj do koszyka</button>
                     </li>
                 ))}
             </ul>
         </div>
     );
+
 };
 
 export default Products;

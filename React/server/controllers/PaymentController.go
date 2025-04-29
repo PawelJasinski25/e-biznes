@@ -11,6 +11,7 @@ var currentPayment models.Payment
 
 func AddPayment(c echo.Context) error {
 	var payment models.Payment
+
 	if err := c.Bind(&payment); err != nil {
 		log.Println("[ERROR] Invalid payment request:", err)
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
@@ -20,6 +21,7 @@ func AddPayment(c echo.Context) error {
 	currentPayment = payment
 
 	log.Println("[INFO] Payment received:", payment)
+	currentCart = models.Cart{Items: make([]models.CartItem, 0)}
 
 	return c.JSON(http.StatusCreated, currentPayment)
 }

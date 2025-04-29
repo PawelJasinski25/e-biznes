@@ -9,13 +9,11 @@ import (
 func main() {
 	e := echo.New()
 
-	// 🔥 Middleware CORS 🔥
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:5173"},
 		AllowMethods: []string{echo.GET, echo.POST, echo.PUT, echo.DELETE},
 	}))
 
-	// Rejestracja tras
 	routes.RegisterProductRoutes(e)
 	routes.RegisterCartRoutes(e)
 	routes.RegisterPaymentRoutes(e)
