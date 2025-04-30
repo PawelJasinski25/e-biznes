@@ -76,5 +76,5 @@ serwerowej [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commi
 :white_check_mark: 5.0  wykorzystać axios’a oraz dodać nagłówki pod CORS [Link do commita 5](https://github.com/PawelJasinski25/e-biznes/commit/40545748d63bf4b679831e2e319aab171adb4ed8)
 
 [Zadanie - Frontend](https://github.com/PawelJasinski25/e-biznes/tree/main/React)  
-[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Go.zip) 
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Frontend.zip) 
 
