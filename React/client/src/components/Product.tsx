@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useCart } from "../contexts/CartContext";
 
 interface Product {
     id: number;
@@ -8,6 +9,7 @@ interface Product {
 }
 
 const Products = () => {
+    const { addToCart } = useCart();
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
@@ -15,20 +17,6 @@ const Products = () => {
             .then(response => setProducts(response.data))
             .catch(error => console.error("Error fetching products:", error));
     }, []);
-
-    const addToCart = async (productId: number) => {
-        try {
-            await axios.post("http://localhost:8080/cart", {
-                product_id: productId,
-                quantity: 1, // 🔥 Zawsze dodajemy 1 sztukę
-            });
-
-            alert("Produkt dodany do koszyka!");
-        } catch (error) {
-            console.error("Błąd dodawania do koszyka:", error);
-        }
-    };
-
 
     return (
         <div>
@@ -43,7 +31,6 @@ const Products = () => {
             </ul>
         </div>
     );
-
 };
 
 export default Products;

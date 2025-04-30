@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useCart } from "../contexts/CartContext";
 
 interface Payment {
     name: string;
@@ -9,6 +10,8 @@ interface Payment {
 }
 
 const Payment = () => {
+    const { fetchCart } = useCart();
+
     const [payment, setPayment] = useState<Payment>({
         name: "",
         surname: "",
@@ -39,9 +42,12 @@ const Payment = () => {
             await axios.post("http://localhost:8080/payments", payment, {
                 headers: { "Content-Type": "application/json" },
             });
-            setPayment({ name: "", surname: "", credit_card_number: "", amount: 0 });
 
             alert("Płatność przetworzona!");
+
+            fetchCart();
+
+            setPayment({ name: "", surname: "", credit_card_number: "", amount: 0 });
         } catch (error) {
             console.error("Błąd płatności:", error);
         }
