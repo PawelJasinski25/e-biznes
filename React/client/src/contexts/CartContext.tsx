@@ -36,7 +36,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
                 product_id: productId,
                 quantity: 1,
             });
-            fetchCart(); // 🔄 Automatycznie odświeżamy koszyk po dodaniu produktu
+            fetchCart();
         } catch (error) {
             console.error("Error adding to cart:", error);
         }

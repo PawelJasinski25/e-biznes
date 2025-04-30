@@ -18,7 +18,7 @@ const Cart = () => {
             .catch(error => console.error("Error fetching products:", error));
     }, []);
 
-    const groupedCart = cart.reduce((acc, item) => {
+    const groupedCart = (cart ?? []).reduce((acc, item) => {
         const existingItem = acc.find(i => i.product_id === item.product_id);
         if (existingItem) {
             existingItem.quantity += item.quantity;
@@ -27,6 +27,7 @@ const Cart = () => {
         }
         return acc;
     }, [] as { product_id: number; quantity: number }[]);
+
 
     const calculateTotalPrice = () => {
         return groupedCart.reduce((total, item) => {
