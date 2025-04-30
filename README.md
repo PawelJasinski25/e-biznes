@@ -62,3 +62,19 @@
 [Zadanie - Go](https://github.com/PawelJasinski25/e-biznes/tree/main/Go)  
 [Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Go.zip)  
 
+**Zadanie 5** Frontend React + Go
+
+:white_check_mark: 3.0  dwa komponenty: Produkty oraz Płatności; Płatności powinny wysyłać do aplikacji serwerowej dane, a w Produktach powinniśmy pobierać dane o produktach z aplikacji
+serwerowej [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/38c229b19c61744d1d42aeebde1ccb9244936fba)
+
+:white_check_mark: 3.5  dodać Koszyk wraz z widokiem; należy wykorzystać routing [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/40545748d63bf4b679831e2e319aab171adb4ed8)
+
+:white_check_mark: 4.0  Dane pomiędzy wszystkimi komponentami powinny być przesyłane za pomocą React hooks [Link do commita 3](https://github.com/PawelJasinski25/e-biznes/commit/ff021bbd3845ca8bcbd5f52e9b67eb7360ec88bb)
+
+:white_check_mark: 4.5  dodać skrypt uruchamiający aplikację serwerową oraz kliencką na dockerze via docker-compose [Link do commita 4](https://github.com/PawelJasinski25/e-biznes/commit/b1e2a09008d3b88c21f1504b75115c94e5e844e0)
+
+:white_check_mark: 5.0  wykorzystać axios’a oraz dodać nagłówki pod CORS [Link do commita 5](https://github.com/PawelJasinski25/e-biznes/commit/40545748d63bf4b679831e2e319aab171adb4ed8)
+
+[Zadanie - Frontend](https://github.com/PawelJasinski25/e-biznes/tree/main/React)  
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Go.zip) 
+
