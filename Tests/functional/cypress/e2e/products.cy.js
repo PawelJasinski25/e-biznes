@@ -7,9 +7,26 @@ describe("Product Page Tests", () => {
     cy.get("ul").should("be.visible");
   });
 
+  it('Should load the product list', () => {
+    cy.get('h2').should('contain', 'Lista produktów')
+    cy.get('ul li').should('have.length', 4)
+    cy.get('ul li button')
+        .filter(':contains("Dodaj do koszyka")')
+        .should('have.length', 4)
+  })
+
+  it("each product list item should contain a dash '-' between name and price", () => {
+    cy.get("ul li").each(($el) => {
+      cy.wrap($el)
+          .invoke("text")
+          .should("match", /.+\s-\s.+/);
+    });
+  });
+
   it("Adding a product to the cart should update cart contents", () => {
     cy.get("button").contains("➕ Dodaj do koszyka").first().click();
     cy.get(".nav-link").contains("Koszyk").click();
+    cy.url().should('include', '/cart')
     cy.get("ul").should("contain", "Ilość");
   });
 
@@ -36,6 +53,7 @@ describe("Product Page Tests", () => {
     });
 
     cy.get(".nav-link").contains("Koszyk").click();
+    cy.url().should('include', '/cart')
     cy.wait(1000);
 
     cy.get("ul li").should("have.length.greaterThan", 1);
@@ -45,9 +63,9 @@ describe("Product Page Tests", () => {
     cy.visit("/products");
 
     cy.get("button").contains("➕ Dodaj do koszyka").first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get("button").contains("➕ Dodaj do koszyka").first().click();
-    cy.wait(500);
+    cy.wait(200);
 
     cy.get(".nav-link").contains("Koszyk").click();
     cy.get("ul").should("contain", "Ilość: 2");
@@ -58,6 +76,13 @@ describe("Product Page Tests", () => {
     cy.get("li").each(($el) => {
       cy.wrap($el).find("button").should("contain", "Dodaj do koszyka");
     });
+  });
+
+  it("should ensure user can navigate back to products from the cart", () => {
+    cy.get(".nav-link").contains("Koszyk").click();
+    cy.url().should("include", "/cart");
+    cy.get(".nav-link").contains("Produkty").click();
+    cy.url().should("include", "/products");
   });
 
 });

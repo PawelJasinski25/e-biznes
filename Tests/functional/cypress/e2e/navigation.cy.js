@@ -4,7 +4,14 @@ describe("Navigation Bar Tests", () => {
     });
 
     it("Navigation bar should be visible", () => {
-        cy.get(".navbar").should("be.visible");
+        cy.get(".navbar")
+            .should("be.visible")
+            .should("contain", "Strona główna")
+            .should("contain", "Produkty")
+            .should("contain", "Koszyk")
+            .should("contain", "Płatności")
+            .find(".nav-link")
+            .should("have.length", 4);
     });
 
     it("Home button should work and display the correct heading", () => {
