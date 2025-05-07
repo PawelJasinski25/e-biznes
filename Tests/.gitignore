@@ -7,3 +7,6 @@
 /dataSources/
 /dataSources.local.xml
 /.idea
+/functional/log
+/functional/local.log
+/functional/npm_install_debug.log

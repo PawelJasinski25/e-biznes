@@ -1,5 +1,10 @@
 describe("Product Page Tests", () => {
   beforeEach(() => {
+    cy.visit("/payment");
+    cy.get("input[placeholder='Imię']").type("Jan");
+        cy.get("input[placeholder='Nazwisko']").type("Kowalski");
+        cy.get("input[placeholder='Numer karty']").type("1234 5678 9012 3456");
+        cy.get("button").contains("Zapłać").click();
     cy.visit("/products");
   });
 
@@ -69,6 +74,7 @@ describe("Product Page Tests", () => {
 
     cy.get(".nav-link").contains("Koszyk").click();
     cy.get("ul").should("contain", "Ilość: 2");
+
   });
 
 
