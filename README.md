@@ -78,3 +78,33 @@ serwerowej [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commi
 [Zadanie - Frontend](https://github.com/PawelJasinski25/e-biznes/tree/main/React)  
 [Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Frontend.zip) 
 
+**Zadanie 6** Testy
+
+:white_check_mark: 3.0  Należy stworzyć 20 przypadków testowych w CypressJS lub Selenium [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/19ba7d7b5f0d011b07f9b6b111ffa705dd247808)
+
+:white_check_mark: 3.5  Należy rozszerzyć testy funkcjonalne, aby zawierały minimum 50 asercji [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/1a5c9e3b743ecfa108cf43c412594e308497d539)
+
+:white_check_mark: 4.0  Należy stworzyć testy jednostkowe do wybranego wcześniejszego projektu z minimum 50 asercjami [Link do commita 3](https://github.com/PawelJasinski25/e-biznes/commit/5a6c84ce484096602ff27d9087a1c26d1ce911c1)
+
+:white_check_mark: 4.5  dodać testy API, należy pokryć wszystkie endpointy z minimum jednym scenariuszem negatywnym per endpoint [Link do commita 4](https://github.com/PawelJasinski25/e-biznes/commit/3e74704fcad11393eee5eb4a29728ab4037bb405)
+
+:white_check_mark: 5.0  Należy uruchomić testy funkcjonalne na Browserstacku [Link do commita 5](https://github.com/PawelJasinski25/e-biznes/commit/081a46c3b21bdb92683338ad07fe4b1a4ffa5877)
+
+[Zadanie - Testy](https://github.com/PawelJasinski25/e-biznes/tree/main/Tests)  
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Tests.zip) 
+
+**Zadanie 7** Sonar
+
+:white_check_mark: 3.0  dodać litera do odpowiedniego kodu aplikacji serwerowej w hookach gita [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/85865be5259e912365ef961eded757e8073e0f70)
+
+:white_check_mark: 3.5 wyeliminować wszystkie bugi w kodzie w Sonarze (kod aplikacji serwerowej) [Link do commita2 ](https://github.com/PawelJasinski25/Frontend-React-Go/commit/c0c9a673984bc16c26a1d72a57e7d5627a33f186)
+
+:white_check_mark: 4.0  wyeliminować wszystkie zapaszki w kodzie w Sonarze (kod aplikacji serwerowej) [Link do commita 3](https://github.com/PawelJasinski25/Frontend-React-Go/commit/86caffe11e978764da7166dc03eaddf5411378a7)
+
+:white_check_mark: 4.5  wyeliminować wszystkie podatności oraz błędy bezpieczeństwa w kodzie w Sonarze (kod aplikacji serwerowej) [Link do commita 4](https://github.com/PawelJasinski25/Frontend-React-Go/commit/89a0b176c76c13bb231eb844484fbf9dee80f9c0)
+
+:white_check_mark: 5.0  wyeliminować wszystkie błędy oraz zapaszki w kodzie aplikacji klienckiej [Link do commita 5](https://github.com/PawelJasinski25/Frontend-React-Go/commit/8ce927780c10fde70a1e98c61e96afd671ecfe9d)
+
+[Zadanie - Sonar](https://github.com/PawelJasinski25/e-biznes/tree/main/Sonar)  
+
+
