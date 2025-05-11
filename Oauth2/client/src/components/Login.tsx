@@ -27,6 +27,10 @@ const Login = () => {
         window.location.href = "http://localhost:8080/auth/google/login";
     };
 
+    const handleGitHubLogin = () => {
+        window.location.href = "http://localhost:8080/auth/github/login";
+    };
+
     return (
         <div style={{ maxWidth: '400px', margin: 'auto', paddingTop: '50px' }}>
             <form onSubmit={handleLogin}>
@@ -51,16 +55,26 @@ const Login = () => {
                 />
                 <button type="submit">Zaloguj się</button>
             </form>
-            <p>
-                <button onClick={handleGoogleLogin} style={{ marginLeft: '10px' }}>
-                    Zaloguj przez Google
-                </button>
-            </p>
+
+            {/* Blok przycisków logowania OAuth */}
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    marginTop: '20px',
+                }}
+            >
+                <button onClick={handleGoogleLogin}>Zaloguj przez Google</button>
+                <button onClick={handleGitHubLogin}>Zaloguj przez GitHub</button>
+            </div>
+
             <p>
                 Nie masz konta? <Link to="/register">Zarejestruj się</Link>
             </p>
         </div>
     );
 };
+
 
 export default Login;
