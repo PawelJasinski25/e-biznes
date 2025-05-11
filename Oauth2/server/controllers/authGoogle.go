@@ -3,13 +3,14 @@ package controllers
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"server/config"
+	jwtutil "server/utils"
 
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -61,13 +62,13 @@ func GoogleCallback(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Brak kodu autoryzacyjnego"})
 	}
 
-	token, err := googleOauthConfig.Exchange(context.Background(), code)
+	oauthToken, err := googleOauthConfig.Exchange(context.Background(), code)
 	if err != nil {
 		log.Printf("Wymiana kodu nie powiodła się: %s\n", err.Error())
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd wymiany kodu autoryzacyjnego"})
 	}
 
-	resp, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token.AccessToken)
+	resp, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + oauthToken.AccessToken)
 	if err != nil {
 		log.Printf("Błąd pobierania danych użytkownika: %s\n", err.Error())
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd pobierania danych"})
@@ -101,7 +102,31 @@ func GoogleCallback(c echo.Context) error {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd zapisu do bazy"})
 		}
 	}
-	ownToken := fmt.Sprintf("own-token-for-user-%d", user.ID)
-	redirectURL := fmt.Sprintf("http://localhost:5173/home?token=%s", ownToken)
-	return c.Redirect(http.StatusTemporaryRedirect, redirectURL)
+	user.GoogleAccessToken = oauthToken.AccessToken
+	user.GoogleTokenExpires = oauthToken.Expiry
+
+	jwtToken, err := jwtutil.GenerateJWT(user)
+	if err != nil {
+		log.Printf("Błąd generowania JWT: %v\n", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd generowania tokena"})
+	}
+	user.JWT = jwtToken
+	if err := database.DB.Save(&user).Error; err != nil {
+		log.Printf("Błąd zapisania danych w bazie: %v\n", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd zapisu danych w bazie"})
+	}
+
+	sess, err := session.Get("session", c)
+	if err != nil {
+		log.Printf("Błąd pobierania sesji: %v", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd sesji"})
+	}
+	sess.Values["jwt"] = user.JWT
+	sess.Values["userID"] = user.ID
+	if err := sess.Save(c.Request(), c.Response()); err != nil {
+		log.Printf("Błąd zapisywania sesji: %v", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd zapisu sesji"})
+	}
+
+	return c.Redirect(http.StatusTemporaryRedirect, "http://localhost:5173/home")
 }

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"server/controllers"
@@ -16,10 +18,12 @@ func main() {
 		AllowOrigins: []string{"http://localhost:5173"},
 		AllowMethods: []string{echo.GET, echo.POST, echo.PUT, echo.DELETE},
 	}))
+	
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret-key"))))
 
 	e.POST("/register", controllers.Register)
 	e.POST("/login", controllers.Login)
-	
+
 	e.GET("/auth/google/login", controllers.GoogleLogin)
 	e.GET("/auth/google/callback", controllers.GoogleCallback)
 

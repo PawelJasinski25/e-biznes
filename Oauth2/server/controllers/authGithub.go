@@ -3,13 +3,14 @@ package controllers
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"server/config"
+	jwtutil "server/utils"
 
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/github"
@@ -55,7 +56,7 @@ func GithubCallback(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Brak kodu autoryzacyjnego"})
 	}
 
-	token, err := githubOauthConfig.Exchange(context.Background(), code)
+	oauthToken, err := githubOauthConfig.Exchange(context.Background(), code)
 	if err != nil {
 		log.Printf("Wymiana kodu nie powiodła się (GitHub): %s\n", err.Error())
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd wymiany kodu autoryzacyjnego"})
@@ -66,7 +67,7 @@ func GithubCallback(c echo.Context) error {
 		log.Printf("Błąd tworzenia zapytania do GitHub: %s\n", err.Error())
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd tworzenia zapytania"})
 	}
-	req.Header.Set("Authorization", "token "+token.AccessToken)
+	req.Header.Set("Authorization", "token "+oauthToken.AccessToken)
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -81,17 +82,17 @@ func GithubCallback(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd odczytu odpowiedzi"})
 	}
 
-	var githubUser GithubUser
-	if err := json.Unmarshal(body, &githubUser); err != nil {
+	var ghUser GithubUser
+	if err := json.Unmarshal(body, &ghUser); err != nil {
 		log.Printf("Błąd parsowania danych użytkownika z GitHub: %s\n", err.Error())
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd przetwarzania danych"})
 	}
 
-	log.Printf("Otrzymane dane z GitHub: %+v\n", githubUser)
+	log.Printf("Otrzymane dane z GitHub: %+v\n", ghUser)
 
-	if githubUser.Email == "" {
+	if ghUser.Email == "" {
 		emailReq, _ := http.NewRequest("GET", "https://api.github.com/user/emails", nil)
-		emailReq.Header.Set("Authorization", "token "+token.AccessToken)
+		emailReq.Header.Set("Authorization", "token "+oauthToken.AccessToken)
 		emailResp, err := http.DefaultClient.Do(emailReq)
 		if err != nil {
 			log.Printf("Błąd pobierania emaili z GitHub: %s\n", err.Error())
@@ -104,16 +105,16 @@ func GithubCallback(c echo.Context) error {
 			Primary bool   `json:"primary"`
 		}
 		if err := json.Unmarshal(emailBody, &emails); err == nil && len(emails) > 0 {
-			githubUser.Email = emails[0].Email
+			ghUser.Email = emails[0].Email
 		}
 	}
 
 	var user models.User
-	err = database.DB.Where("email = ?", githubUser.Email).First(&user).Error
+	err = database.DB.Where("email = ?", ghUser.Email).First(&user).Error
 	if err != nil {
 		user = models.User{
-			Email:   githubUser.Email,
-			Name:    githubUser.Name,
+			Email:   ghUser.Email,
+			Name:    ghUser.Name,
 			Surname: "",
 		}
 		if err := database.DB.Create(&user).Error; err != nil {
@@ -122,7 +123,32 @@ func GithubCallback(c echo.Context) error {
 		}
 	}
 
-	ownToken := fmt.Sprintf("own-token-for-user-%d", user.ID)
-	redirectURL := fmt.Sprintf("http://localhost:5173/home?token=%s", ownToken)
-	return c.Redirect(http.StatusTemporaryRedirect, redirectURL)
+	user.GithubAccessToken = oauthToken.AccessToken
+	user.GithubTokenExpires = oauthToken.Expiry
+
+	jwtToken, err := jwtutil.GenerateJWT(user)
+	if err != nil {
+		log.Printf("Błąd generowania JWT: %v\n", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd generowania tokena"})
+	}
+	user.JWT = jwtToken
+
+	if err := database.DB.Save(&user).Error; err != nil {
+		log.Printf("Błąd zapisania danych w bazie (GitHub): %v\n", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd zapisu danych w bazie"})
+	}
+
+	sess, err := session.Get("session", c)
+	if err != nil {
+		log.Printf("Błąd pobierania sesji: %v", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd sesji"})
+	}
+	sess.Values["jwt"] = user.JWT
+	sess.Values["userID"] = user.ID
+	if err := sess.Save(c.Request(), c.Response()); err != nil {
+		log.Printf("Błąd zapisywania sesji: %v", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Błąd zapisu sesji"})
+	}
+
+	return c.Redirect(http.StatusTemporaryRedirect, "http://localhost:5173/home")
 }

@@ -56,7 +56,7 @@ const Login = () => {
                 <button type="submit">Zaloguj się</button>
             </form>
 
-            {/* Blok przycisków logowania OAuth */}
+            {}
             <div
                 style={{
                     display: 'flex',
