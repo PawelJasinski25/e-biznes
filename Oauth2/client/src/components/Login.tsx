@@ -23,6 +23,10 @@ const Login = () => {
         }
     };
 
+    const handleGoogleLogin = () => {
+        window.location.href = "http://localhost:8080/auth/google/login";
+    };
+
     return (
         <div style={{ maxWidth: '400px', margin: 'auto', paddingTop: '50px' }}>
             <form onSubmit={handleLogin}>
@@ -47,6 +51,11 @@ const Login = () => {
                 />
                 <button type="submit">Zaloguj się</button>
             </form>
+            <p>
+                <button onClick={handleGoogleLogin} style={{ marginLeft: '10px' }}>
+                    Zaloguj przez Google
+                </button>
+            </p>
             <p>
                 Nie masz konta? <Link to="/register">Zarejestruj się</Link>
             </p>
