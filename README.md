@@ -103,8 +103,19 @@ serwerowej [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commi
 
 :white_check_mark: 4.5  wyeliminować wszystkie podatności oraz błędy bezpieczeństwa w kodzie w Sonarze (kod aplikacji serwerowej) [Link do commita 4](https://github.com/PawelJasinski25/Frontend-React-Go/commit/89a0b176c76c13bb231eb844484fbf9dee80f9c0)
 
-:white_check_mark: 5.0  wyeliminować wszystkie błędy oraz zapaszki w kodzie aplikacji klienckiej [Link do commita 5](https://github.com/PawelJasinski25/Frontend-React-Go/commit/8ce927780c10fde70a1e98c61e96afd671ecfe9d)
+**Zadanie 8** Oauth2
 
-[Zadanie - Sonar](https://github.com/PawelJasinski25/e-biznes/tree/main/Sonar)  
+:white_check_mark: 3.0  logowanie przez aplikację serwerową (bez Oauth2) [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/5948203d9a1f02b8da5f14f94489929244a689d9)
+
+:white_check_mark: 3.5 rejestracja przez aplikację serwerową (bez Oauth2) [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/5948203d9a1f02b8da5f14f94489929244a689d9)
+
+:white_check_mark: 4.0  logowanie via Google OAuth2 [Link do commita 3](https://github.com/PawelJasinski25/e-biznes/commit/4f3acb9e41023fd5e5c91b2acee781962d02a1d3)
+
+:white_check_mark: 4.5  logowanie via Facebook lub Github OAuth2 [Link do commita 4](https://github.com/PawelJasinski25/e-biznes/commit/2269dae7340db36b8b92c9e162054732f49464f5)
+
+:white_check_mark: 5.0  zapisywanie danych logowania OAuth2 po stronie serwera [Link do commita 5](https://github.com/PawelJasinski25/e-biznes/commit/dae28a43b9b45a0d1bfcb84907a1295574008531)
+
+[Zadanie - Oauth2](https://github.com/PawelJasinski25/e-biznes/tree/main/Oauth2)  
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Oauth2.zip) 
 
 
