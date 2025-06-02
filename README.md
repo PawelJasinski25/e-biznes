@@ -118,4 +118,19 @@ serwerowej [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commi
 [Zadanie - Oauth2](https://github.com/PawelJasinski25/e-biznes/tree/main/Oauth2)  
 [Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Oauth2.zip) 
 
+**Zadanie 9** ChatGPT bot
+
+:white_check_mark: 3.0  należy stworzyć po stronie serwerowej osobny serwis do łączenia z chatGPT do usługi chat [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/a1504dea43ed49d2caeaeac5d021e4471f4bf9b4)
+
+:white_check_mark: 3.5 interfejs frontowy dla użytkownika, który komunikuje się z serwisem; odpowiedzi wysyłane do frontendowego interfejsu [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/d9891ff9a5a6f303d513e1e3c84575193dcd8ac0)
+
+:white_check_mark: 4.0  stworzyć listę 5 różnych otwarć oraz zamknięć rozmowy [Link do commita 3](https://github.com/PawelJasinski25/e-biznes/commit/13675c160936e12d4a34aba0cf13f0c9bdeafc39)
+
+:white_check_mark: 4.5  filtrowanie po zagadnieniach związanych ze sklepem do GPT [Link do commita 4](https://github.com/PawelJasinski25/e-biznes/commit/6a17ec8e08289a9d866aa696179e9b90e6f152cc)
+
+:white_check_mark: 5.0  filtrowanie odpowiedzi po sentymencie [Link do commita 5](https://github.com/PawelJasinski25/e-biznes/commit/a85617d9cfbf723ce3fdcee942831cb107fb8982)
+
+[Zadanie - ChatGPT](https://github.com/PawelJasinski25/e-biznes/tree/main/ChatGPT)  
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/ChatGPT.zip) 
+
 
