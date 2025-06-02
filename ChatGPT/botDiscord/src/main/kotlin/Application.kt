@@ -16,6 +16,14 @@ import com.slack.api.Slack
 import com.slack.api.methods.SlackApiException
 import com.slack.api.methods.request.chat.ChatPostMessageRequest
 import com.slack.api.methods.response.chat.ChatPostMessageResponse
+import io.ktor.client.*
+import io.ktor.client.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 
 suspend fun main() {
@@ -26,6 +34,9 @@ suspend fun main() {
 
     val slackToken = env["SLACK_TOKEN"]
     val slackChannelId = env["SLACK_CHANNEL_ID"]
+    val client = HttpClient()
+    val apiUrl = "http://127.0.0.1:8000/chat"
+
 
     val categories = listOf("games", "books", "electronics", "clothing", "sports")
     val productsByCategory = mapOf(
@@ -100,6 +111,27 @@ suspend fun main() {
                 message.channel.createMessage("Please provide a category. Use: !products <category>")
             }
         }
+
+        if (message.content.startsWith("!chat")) {
+            val userMessage = message.content.removePrefix("!chat").trim()
+            if (userMessage.isNotEmpty()) {
+                try {
+                    val response: HttpResponse = client.post(apiUrl) {
+                        setBody("""{"user_message": "$userMessage"}""")
+                        header(HttpHeaders.ContentType, ContentType.Application.Json)
+                    }
+                    val responseJson = Json.parseToJsonElement(response.bodyAsText()).jsonObject
+                    val chatResponse = responseJson["response"]?.jsonPrimitive?.content ?: "Error retrieving response"
+
+                    message.channel.createMessage(chatResponse)
+                } catch (e: Exception) {
+                    message.channel.createMessage("Error: Unable to connect to the chatbot service.")
+                }
+            } else {
+                message.channel.createMessage("Please provide a message after !chat.")
+            }
+        }
+
     }
 
     kordBot.login()
