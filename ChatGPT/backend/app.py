@@ -1,11 +1,20 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from gpt4all import GPT4All
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 MODEL_PATH = "mistral-7b-instruct-v0.1.Q4_0.gguf"
 gpt4all_model = GPT4All(MODEL_PATH)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Dopuszczamy frontend React
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class ChatRequest(BaseModel):

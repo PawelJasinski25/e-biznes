@@ -1,3 +1,4 @@
 /botDiscord/.env
 __pycache__/
 .idea
+/backend/__pycache__/
