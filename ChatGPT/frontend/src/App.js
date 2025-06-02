@@ -33,9 +33,13 @@ const App = () => {
       <div className="chat-container">
         <h1>💬 Chatbot Sklepu</h1>
         <div className="chat-box">
-          {messages.map((msg, index) => (
-              <Message key={index} role={msg.role} content={msg.content} />
-          ))}
+          {messages.map((msg, index) => {
+            const content =
+                msg.role === "assistant"
+                    ? msg.content.replace(/^.*?:\s*/, "")
+                    : msg.content;
+            return <Message key={index} role={msg.role} content={content} />;
+          })}
           {loading && <p className="loading">⏳ Generowanie odpowiedzi...</p>}
         </div>
         <InputBox sendMessage={sendMessage} />

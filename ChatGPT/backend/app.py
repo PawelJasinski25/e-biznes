@@ -39,11 +39,6 @@ CLOSERS = [
 
 GREETINGS = ["hello", "hi", "hey", "good morning", "good afternoon", "good evening"]
 
-@app.get("/welcome")
-async def welcome():
-    """ Returns a random greeting when the chat starts. """
-    return {"response": random.choice(OPENERS)}
-
 @app.post("/chat")
 async def chat(chat_req: ChatRequest):
     user_message = chat_req.user_message.strip().lower()
@@ -52,10 +47,22 @@ async def chat(chat_req: ChatRequest):
         if user_message in GREETINGS:
             response_text = random.choice(OPENERS)
         else:
-            response_text = gpt4all_model.generate(user_message, max_tokens=100, temp=0.7)
+            # Generate response from GPT-4All using a structured prompt
+            system_prompt = (
+                "You are a professional assistant for a clothing store. Your primary role is to help customers with clothing-related "
+                "inquiries, fashion advice, store policies, and product recommendations. You must always provide polite, informative, and "
+                "helpful responses. Your responses should focus exclusively on: clothing recommendations, styling tips, fabric types, sizing guides, "
+                "fit adjustments, store policies (returns, refunds, exchanges), seasonal trends, brands, shopping assistance, and product availability. "
+                "If a user asks a question that is not related to clothing, fashion, or shopping, politely decline to answer and redirect them back to "
+                "store-related topics"
+                "Ensure responses remain concise and direct—do not expand on the user's statement unless necessary. Avoid unnecessary elaborations or completing "
+                "the user's sentences. If clarification is needed, ask follow-up questions instead of assuming missing details."
+            )
+
+            response_text = gpt4all_model.generate(system_prompt + "\nUser: " + user_message, max_tokens=100, temp=0.7)
 
         if user_message in ["bye", "goodbye", "thanks"]:
-            response_text += "\n\n" + random.choice(CLOSERS)
+            response_text = random.choice(CLOSERS)
 
         return {"response": response_text.strip()}
     except Exception as e:
