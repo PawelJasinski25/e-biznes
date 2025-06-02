@@ -23,7 +23,7 @@ const App = () => {
       const botMessage = { role: "assistant", content: response.data.response };
       setMessages([...messages, userMessage, botMessage]);
     } catch (error) {
-      const botMessage = { role: "assistant", content: "❌ Błąd serwera!" };
+      const botMessage = { role: "assistant", content: " Błąd serwera!" };
       setMessages([...messages, userMessage, botMessage]);
     }
     setLoading(false);

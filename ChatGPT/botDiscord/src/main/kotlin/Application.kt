@@ -17,13 +17,15 @@ import com.slack.api.methods.SlackApiException
 import com.slack.api.methods.request.chat.ChatPostMessageRequest
 import com.slack.api.methods.response.chat.ChatPostMessageResponse
 import io.ktor.client.*
-import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import io.ktor.client.plugins.HttpTimeout
+
+
+
 
 
 suspend fun main() {
@@ -34,7 +36,13 @@ suspend fun main() {
 
     val slackToken = env["SLACK_TOKEN"]
     val slackChannelId = env["SLACK_CHANNEL_ID"]
-    val client = HttpClient()
+    val client = HttpClient() {
+        install(HttpTimeout) {
+            requestTimeoutMillis = 30000L
+            connectTimeoutMillis = 15000L
+            socketTimeoutMillis = 30000L
+        }
+    }
     val apiUrl = "http://127.0.0.1:8000/chat"
 
 

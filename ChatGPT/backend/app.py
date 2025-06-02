@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from gpt4all import GPT4All
 from starlette.middleware.cors import CORSMiddleware
 import random
+from textblob import TextBlob
+
 
 app = FastAPI()
 
@@ -20,7 +22,6 @@ app.add_middleware(
 class ChatRequest(BaseModel):
     user_message: str
 
-# List of predefined conversation openers and closers
 OPENERS = [
     "Hello. How can I assist you today?",
     "Welcome to our store. Are you looking for a specific item?",
@@ -39,15 +40,22 @@ CLOSERS = [
 
 GREETINGS = ["hello", "hi", "hey", "good morning", "good afternoon", "good evening"]
 
+
 @app.post("/chat")
 async def chat(chat_req: ChatRequest):
     user_message = chat_req.user_message.strip().lower()
+    user_sentiment = TextBlob(user_message).sentiment.polarity
+    if user_sentiment < -0.2:
+        fallback_input = (
+            "Your message appears quite negative in tone. "
+            "Let’s keep our conversation respectful and constructive. Could you please rephrase your question?"
+        )
+        return {"response": fallback_input}
 
     try:
         if user_message in GREETINGS:
             response_text = random.choice(OPENERS)
         else:
-            # Generate response from GPT-4All using a structured prompt
             system_prompt = (
                 "You are a professional assistant for a clothing store. Your primary role is to help customers with clothing-related "
                 "inquiries, fashion advice, store policies, and product recommendations. You must always provide polite, informative, and "
@@ -60,6 +68,11 @@ async def chat(chat_req: ChatRequest):
             )
 
             response_text = gpt4all_model.generate(system_prompt + "\nUser: " + user_message, max_tokens=100, temp=0.7)
+            answer_sentiment = TextBlob(response_text).sentiment.polarity
+            if answer_sentiment < -0.2:
+                response_text = (
+                    "I'm sorry if my response seems negative. Let me try to provide a more balanced answer."
+                )
 
         if user_message in ["bye", "goodbye", "thanks"]:
             response_text = random.choice(CLOSERS)
