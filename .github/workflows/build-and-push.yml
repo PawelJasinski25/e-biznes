@@ -24,15 +24,15 @@ jobs:
       - name: Build and Push Backend Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: ./backend
-          file: ./backend/Dockerfile
+          context: ./server
+          file: ./server/Dockerfile
           push: true
-          tags: your-dockerhub-username/your-backend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest
 
       - name: Build and Push Frontend Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
+          context: ./client
+          file: ./client/Dockerfile
           push: true
-          tags: your-dockerhub-username/your-frontend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
