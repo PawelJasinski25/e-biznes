@@ -24,15 +24,15 @@ jobs:
       - name: Build and Push Backend Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: ./server
-          file: ./server/Dockerfile
+          context: ./Chmura/server
+          file: ./Chmura/server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest
 
       - name: Build and Push Frontend Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: ./client
-          file: ./client/Dockerfile
+          context: ./Chmura/client
+          file: ./Chmura/client/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
