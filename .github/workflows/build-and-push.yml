@@ -37,27 +37,27 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest
 
-notify:
-  name: Send Notification Email
-  needs: build-and-push
-  runs-on: ubuntu-latest
-  steps:
-    - name: Get Commit Hash
-      id: commit
-      run: echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
+  notify:
+    name: Send Notification Email
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Commit Hash
+        id: commit
+        run: echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-    - name: Send Email Notification
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.example.com
-        server_port: 587
-        username: ${{ secrets.EMAIL }}
-        password: ${{ secrets.EMAIL_PASSWORD }}
-        subject: "Build Completed"
-        body: "The application has been successfully built, and the Docker images have been pushed to Docker Hub!  
-        
-        Repository: ${{ github.repository }}  
-        Commit: ${{ github.sha }}"
-        to: ${{ secrets.EMAIL }}
-        from: ${{ secrets.EMAIL }}
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.example.com
+          server_port: 587
+          username: ${{ secrets.EMAIL }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Build Completed"
+          body: "The application has been successfully built, and the Docker images have been pushed to Docker Hub!  
+          
+          Repository: ${{ github.repository }}  
+          Commit: ${{ github.sha }}"
+          to: ${{ secrets.EMAIL }}
+          from: ${{ secrets.EMAIL }}
 
