@@ -61,5 +61,28 @@ jobs:
           to: ${{ secrets.EMAIL }}
           from: ${{ secrets.EMAIL }}
 
+
+  deploy:
+    name: Deploy to Azure Web Apps
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Backend to Azure Web App
+        id: deploy-backend-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_BACKEND_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
+          images: '${{ secrets.DOCKER_HUB_USERNAME }}/backend:latest'
+
+      - name: Deploy Frontend to Azure Web App
+        id: deploy-frontend-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_FRONTEND_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONTEND }}
+          images: '${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest'
+
+
           
 
