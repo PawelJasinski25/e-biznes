@@ -84,5 +84,34 @@ jobs:
           images: '${{ secrets.DOCKER_HUB_USERNAME }}/frontend:latest'
 
 
+  tests:
+  name: Run Regression (Cypress) Tests
+  needs: deploy
+  runs-on: ubuntu-latest
+  env:
+    FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+  defaults:
+    run:
+      working-directory: ./Chmura/tests
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Wait for Frontend to be available
+      run: npx wait-on ${{ env.FRONTEND_URL }}
+
+    - name: Run Cypress tests
+      run: npx cypress run --config baseUrl=${{ env.FRONTEND_URL }}
+
+
+
           
 
