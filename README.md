@@ -103,6 +103,9 @@ serwerowej [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commi
 
 :white_check_mark: 4.5  wyeliminować wszystkie podatności oraz błędy bezpieczeństwa w kodzie w Sonarze (kod aplikacji serwerowej) [Link do commita 4](https://github.com/PawelJasinski25/Frontend-React-Go/commit/89a0b176c76c13bb231eb844484fbf9dee80f9c0)
 
+[Zadanie - Sonar](https://github.com/PawelJasinski25/e-biznes/tree/main/Sonar)  
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Sonar.zip) 
+
 **Zadanie 8** Oauth2
 
 :white_check_mark: 3.0  logowanie przez aplikację serwerową (bez Oauth2) [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/5948203d9a1f02b8da5f14f94489929244a689d9)
@@ -132,5 +135,20 @@ serwerowej [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commi
 
 [Zadanie - ChatGPT](https://github.com/PawelJasinski25/e-biznes/tree/main/ChatGPT)  
 [Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/ChatGPT.zip) 
+
+**Zadanie 10** Chmura/CI
+
+:white_check_mark: 3.0  Należy stworzyć odpowiednie instancje po stronie chmury na dockerze [Link do commita 1](https://github.com/PawelJasinski25/e-biznes/commit/7e09b4ee590d094a489d7863479738e2ec723691)
+
+:white_check_mark: 3.5 Stworzyć odpowiedni pipeline w Github Actions do budowania aplikacji [Link do commita2 ](https://github.com/PawelJasinski25/e-biznes/commit/0ad1e4c026adfabddeb20cf2c73fc9190a8994b7)
+
+:white_check_mark: 4.0  Dodać notyfikację mailową o zbudowaniu aplikacji [Link do commita 3](https://github.com/PawelJasinski25/e-biznes/commit/7c0a7aa11bb532ab3a2d4916f6de07ac30c93944)
+
+:white_check_mark: 4.5  Dodać krok z deploymentem aplikacji serwerowej oraz klienckiej na chmurę [Link do commita 4](https://github.com/PawelJasinski25/e-biznes/commit/5b4336d29b686db3aa153b02fc3a0aab889333ea)
+
+:white_check_mark: 5.0  Dodać uruchomienie regresyjnych testów automatycznych jako krok w Actions [Link do commita 5](https://github.com/PawelJasinski25/e-biznes/commit/7f0c564fa965eee1fc909a5a30635b8ea9645159)
+
+[Zadanie - Chmura](https://github.com/PawelJasinski25/e-biznes/tree/main/Chmura)  
+[Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Chmura.zip) 
 
 
