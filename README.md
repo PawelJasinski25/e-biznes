@@ -14,7 +14,7 @@
 
 [Zadanie - Docker](https://github.com/PawelJasinski25/e-biznes/tree/main/Docker)  
 [Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Docker.zip)  
-[Obraz](https://hub.docker.com/repository/docker/paweljasinski77/zadanie_docker/general)    
+[Obraz](https://hub.docker.com/r/paweljasinski77/zadanie_docker)    
 
 **Zadanie 2** Scala + Play
 
