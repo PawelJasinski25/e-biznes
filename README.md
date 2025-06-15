@@ -30,7 +30,7 @@
 
 [Zadanie - Scala](https://github.com/PawelJasinski25/e-biznes/tree/main/Scala)   
 [Demo](https://github.com/PawelJasinski25/e-biznes/blob/main/demos/Scala.zip)  
-[Obraz](https://hub.docker.com/repository/docker/paweljasinski77/zadanie_scala/general)  
+[Obraz](https://hub.docker.com/r/paweljasinski77/zadanie_scala)  
 
 **Zadanie 3** Kotlin + Ktor
 
